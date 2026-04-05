@@ -1,36 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const explainers = await getCollection('explainers');
-explainers.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 ---
-<BaseLayout title="Learn">
+<BaseLayout title="Home">
 
-  <section style="max-width: 640px; margin: 0 auto;">
+<div style="background: #f0f9f6; border-left: 4px solid #3abf99; padding: 0.75rem 1.25rem; margin-bottom: 2rem; font-size: 0.9rem; color: #444;">
+  🌱 Energy Ledger is just getting started — new content is being added regularly.
+</div>
 
-    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Learn</h1>
-    <p style="color: #555; margin-bottom: 3rem; font-size: 1.05rem;">
-      Plain-language explainers on energy verification systems and the technology that could improve them.
+  <section style="text-align: center; padding: 4rem 0 3rem;">
+    <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Energy<span style="color: #3abf99;"> Ledger</span></h1>
+    <p style="font-size: 1.2rem; color: #444; max-width: 580px; margin: 0 auto 2rem; line-height: 1.7;">
+      Energy systems make claims. A solar farm claims it produced renewable electricity. A company claims it consumed green energy. A prosumer claims they fed surplus heat into the network.
     </p>
+    <p style="font-size: 1.2rem; color: #444; max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7;">
+      But how are they verified? And could they be verified better — with more granularity, more privacy, and more trust — than current systems allow?
+    </p>
+    <a href="/learn" class="btn-primary">Explore the explainers →</a>
+  </section>
 
-    {explainers.length === 0 && (
-      <p style="color: #888; font-style: italic;">No explainers published yet — check back soon.</p>
-    )}
+  <section style="margin-top: 4rem;">
+    <h2 style="text-align: center; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.08em; color: #666; margin-bottom: 2rem; font-weight: 600;">Three questions we explore</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
 
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-      {explainers.map(entry => (
-        <a href={`/learn/${entry.id}`} style="text-decoration: none;">
-          <div class="card" style="transition: border-color 0.2s; border: 1px solid #e8eae9;">
-            <span class="pillar-tag">{entry.data.pillar}</span>
-            <h2 style="font-size: 1.2rem; margin: 0.75rem 0 0.5rem;">{entry.data.title}</h2>
-            <p style="color: #555; margin: 0; font-size: 0.95rem;">{entry.data.description}</p>
-            <p style="color: #3abf99; margin: 0.75rem 0 0; font-size: 0.85rem; font-weight: 600;">Read →</p>
-          </div>
-        </a>
-      ))}
+      <div class="card">
+        <span class="pillar-tag">Granularity</span>
+        <p style="margin: 1rem 0 0; color: #333;">From annual averages to hourly and real-time matching — how precise can energy claims become?</p>
+      </div>
+
+      <div class="card">
+        <span class="pillar-tag">Privacy</span>
+        <p style="margin: 1rem 0 0; color: #333;">Can organisations prove they meet energy targets without revealing sensitive operational data?</p>
+      </div>
+
+      <div class="card">
+        <span class="pillar-tag">Trust</span>
+        <p style="margin: 1rem 0 0; color: #333;">What is the difference between administrative trust in an issuing body and cryptographic proof?</p>
+      </div>
+
     </div>
-
   </section>
 
 </BaseLayout>

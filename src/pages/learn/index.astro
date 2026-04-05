@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const explainers = await getCollection('explainers');
+explainers.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+---
+<BaseLayout title="Learn">
+
+  <section style="max-width: 640px; margin: 0 auto;">
+
+    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Learn</h1>
+    <p style="color: #555; margin-bottom: 3rem; font-size: 1.05rem;">
+      Plain-language explainers on energy verification systems and the technology that could improve them.
+    </p>
+
+    {explainers.length === 0 && (
+      <p style="color: #888; font-style: italic;">No explainers published yet — check back soon.</p>
+    )}
+
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+      {explainers.map(entry => (
+        <a href={`/learn/${entry.id}`} style="text-decoration: none;">
+          <div class="card" style="transition: border-color 0.2s; border: 1px solid #e8eae9;">
+            <span class="pillar-tag">{entry.data.pillar}</span>
+            <h2 style="font-size: 1.2rem; margin: 0.75rem 0 0.5rem;">{entry.data.title}</h2>
+            <p style="color: #555; margin: 0; font-size: 0.95rem;">{entry.data.description}</p>
+            <p style="color: #3abf99; margin: 0.75rem 0 0; font-size: 0.85rem; font-weight: 600;">Read →</p>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </section>
+
+</BaseLayout>
